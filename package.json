@@ -1,0 +1,24 @@
+{
+  "name": "MessengerMini",
+  "main": "index.html",
+  "version": "0.0.1",
+  "dependencies": {},
+  "window": {
+    "toolbar": true,
+    "frame": false
+  },
+  "platformOverrides": {
+    "win": {
+      "window": {
+        "toolbar": false
+      }
+    }
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-node-webkit-builder": "~1.0.2",
+    "grunt-contrib-compress": "~0.13.0",
+    "grunt-shell": "~1.1.2",
+    "grunt-contrib-clean": "~0.6.0"
+  }
+}
