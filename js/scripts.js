@@ -1,16 +1,21 @@
 (function () {
-	var gui = require('nw.gui');
-	var currentWindow = gui.Window.get();
-	var iframe = document.getElementById('messenger');
-	var iframedoc;
-	var messengerSidebar;
-	var messengerSidebarOpen = true;
+	var WINDOW_WIDTH = 750,
+		WINDOW_HEIGHT = 500,
+		TOPBAR_HEIGHT = 30,
+	
+		gui = require('nw.gui'),
+		currentWindow = gui.Window.get(),
+		iframe = document.getElementById('messenger'),
+		messengerSidebar,
+		messengerSidebarOpen = true,
+		iframeInterval,
+		iframeDone = false;
 	
 	gui.Screen.Init();
 	
 	currentWindow.title = 'Messenger Mini';
-	currentWindow.width = 750;
-	currentWindow.height = 500;
+	currentWindow.width = WINDOW_WIDTH;
+	currentWindow.height = WINDOW_HEIGHT;
 	
 	currentWindow.on('maximize', function () {
 		currentWindow.unmaximize();
@@ -24,7 +29,7 @@
 	
 	currentWindow.on('resize', function (width, height) {
 		iframe.style.width = width;
-		iframe.style.height = height - 30;
+		iframe.style.height = height - TOPBAR_HEIGHT;
 	});
 	
 	resetWindow();
@@ -49,16 +54,27 @@
 		}
 	}
 	
-	setTimeout(function () {
-		iframedoc = document.getElementById('messenger').contentDocument;
-		messengerSidebar = iframedoc.getElementsByClassName('_1enh')[0];
-	
-		messengerSidebar.style.transition = '0.5s ease all, 0.3s ease opacity';	
+	iframe.onload = function () {
+		var iframeDocument = document.getElementById('messenger').contentDocument;
 		
-		var messageContent = iframedoc.getElementsByClassName('_4sp8')[0];
-		messageContent.style.minWidth = '0';
-		
-	}, 5000);
+		// wait for content to be added, need to keep doing this until after user has logged in
+		iframeInterval = setInterval(function () {	
+			if (!iframeDone && iframeDocument.getElementsByClassName('_1enh').length) {
+				messengerSidebar = iframeDocument.getElementsByClassName('_1enh')[0];
+			
+				messengerSidebar.style.transition = '0.5s ease all, 0.3s ease opacity';	
+				
+				var messageContent = iframeDocument.getElementsByClassName('_4sp8')[0];
+				messageContent.style.minWidth = '0';
+				
+				document.getElementById('toggle-messenger-sidebar').classList.add('active');
+				
+				// this clear() doesn't work, added a temp fix with, var iframeDone
+				clearInterval(iframeInterval);
+				iframeDone = true;
+			}	
+		}, 2000);
+	};
 	
 	document.getElementById('toggle-messenger-sidebar').addEventListener('click', function () {
 		if (messengerSidebarOpen) {

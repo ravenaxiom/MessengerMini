@@ -29,6 +29,12 @@ body {
 	margin-top: -7.5px;
 	left: 13px;
 	border: 1px solid #b3b3b3;
+	opacity:0;
+	transition:0.3s ease opacity;
+}
+
+#toggle-messenger-sidebar.active:before {
+	opacity:1;
 }
 
 #toggle-messenger-sidebar:after {
@@ -40,6 +46,12 @@ body {
 	margin-top: -7.5px;
 	left: 8px;
 	border: 1px solid #b3b3b3;
+	opacity:0;
+	transition:0.3s ease opacity;
+}
+
+#toggle-messenger-sidebar.active:after {
+	opacity:1;
 }
 
 #topbar {
