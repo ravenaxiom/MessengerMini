@@ -6,15 +6,50 @@ body {
 	overflow:hidden;
 }
 
+#toggle-messenger-sidebar {
+	width:30px;
+	height:30px;
+	position:absolute;
+	background:#e6e6e6;
+	top:0;
+	left:0;
+	line-height: 30px;
+	text-align: center;
+	color:#b3b3b3;
+	font-family: Helvetica Neue, Helvetica, Verdana, sans-serif;
+	cursor:pointer;
+}
+
+#toggle-messenger-sidebar:before {
+	content: '';
+	width: 10px;
+	height: 13px;
+	position: absolute;
+	top: 50%;
+	margin-top: -7.5px;
+	left: 13px;
+	border: 1px solid #b3b3b3;
+}
+
+#toggle-messenger-sidebar:after {
+	content: '';
+	width: 2px;
+	height: 13px;
+	position: absolute;
+	top: 50%;
+	margin-top: -7.5px;
+	left: 8px;
+	border: 1px solid #b3b3b3;
+}
+
 #topbar {
 	height:30px;
 	background:#e6e6e6;
 	-webkit-app-region: drag;
 	position: absolute;
 	top: 0px;
-	left: 0;
+	left: 30px;
 	right: 30px;
-	cursor:move;
 }
 
 #close {
